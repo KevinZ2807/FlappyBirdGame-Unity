@@ -53,4 +53,10 @@ public class PlayerScript : MonoBehaviour
         sr.sprite = sprites[spriteIndex]; // Hoat anh cua con chim se
                                         // thanh hình anh trong array sprites
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.tag == "Obstacles" || other.gameObject.tag == "Gound") {
+            FindObjectOfType<GameManager>().GameOver();
+        }
+    }
 }
