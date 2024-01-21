@@ -8,10 +8,6 @@ public class Parallax : MonoBehaviour
     private void Awake() {
         mr = GetComponent<MeshRenderer>();
     }
-    void Start()
-    {
-        
-    }
 
     void Update()
     {

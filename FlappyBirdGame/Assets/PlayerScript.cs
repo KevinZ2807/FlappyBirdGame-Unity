@@ -24,6 +24,13 @@ public class PlayerScript : MonoBehaviour
         InputFunction();
 
 
+    }  
+    void OnEnable()
+    {
+       Vector3 position = transform.position; // Lay vi tri cua player
+       position.y = 0f; // Set do cao len bang 0f
+       transform.position = position; // Tele player den vi tri do
+       direction = Vector3.zero; // Reset vat ly (Trong luc)
     }
 
     private void InputFunction() {
@@ -55,8 +62,11 @@ public class PlayerScript : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.tag == "Obstacles" || other.gameObject.tag == "Gound") {
+        Debug.Log("Hit " + other);
+        if (other.gameObject.tag == "Obstacles" || other.gameObject.tag == "Ground") {
             FindObjectOfType<GameManager>().GameOver();
+        } else if (other.gameObject.tag == "Scoring") {
+            FindObjectOfType<GameManager>().IncreaseScore();
         }
     }
 }
