@@ -4,11 +4,13 @@ public class GameManager : MonoBehaviour
 {
     public PlayerScript player;
     public Text scoreText;
+    public Text highScoreText;
     public GameObject playButton;
     public GameObject gameOverText;
     private int score;
 
     private void Awake() {
+        highScoreText.text = "High score: " + PlayerPrefs.GetInt("HighScore").ToString();
         Application.targetFrameRate = 60; // Set FPS
         Pause();
     }
@@ -41,13 +43,28 @@ public class GameManager : MonoBehaviour
     public void GameOver() {
         gameOverText.SetActive(true);
         playButton.SetActive(true);
+        UpdateHighScore();
 
         Pause();
     }
 
+    // Score functions
+
     public void IncreaseScore() {
         score++;
         scoreText.text = score.ToString();
+    }
+
+    public void UpdateHighScore() {
+        if (score > PlayerPrefs.GetInt("HighScore", 0)) {
+            PlayerPrefs.SetInt("HighScore", score);
+            highScoreText.text = "High score: " + score.ToString();
+        }
+    }
+
+    public void ResetHighScore() {
+        // PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteKey("HighScore");
     }
 
 }
